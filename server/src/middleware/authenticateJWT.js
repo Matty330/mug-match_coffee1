@@ -1,20 +1,20 @@
-const jwt = require('jsonwebtoken');
+import jwt from 'jsonwebtoken';
 
 const authenticateJWT = (req, res, next) => {
-    const token = req.header('Authorization') ?.split(' ')[1];
+    const token = req.header('Authorization')?.split(' ')[1];
 
-    if(!token) {
+    if (!token) {
         return res.status(403).json({ error: 'Access denied, no token provided' });
     }
 
     try {
         const decoded = jwt.verify(token, 'jwt_secret');
-        req.user = decoded
+        req.user = decoded;
         next();
     } catch (err) {
         console.error('JWT authentication error', err);
-        return res.status(400).json({error: 'Invalid token' });
+        return res.status(400).json({ error: 'Invalid token' });
     }
 };
 
-module.exports = authenticateJWT;
+export default authenticateJWT;
