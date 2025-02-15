@@ -11,7 +11,11 @@ const sequelize = new Sequelize(process.env.DATABASE_URL, {
             rejectUnauthorized: false
         }
     },
-    logging: false
+    logging: console.log, // Enable logging to debug connection
 });
+
+sequelize.authenticate()
+    .then(() => console.log('✅ Database connection successful!'))
+    .catch(err => console.error('❌ Database connection failed:', err));
 
 export default sequelize;
