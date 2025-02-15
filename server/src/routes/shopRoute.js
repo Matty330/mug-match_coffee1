@@ -4,8 +4,8 @@ import authenticateJWT from '../middleware/authenticateJWT.js';
 
 const router = express.Router();
 
-router.get('/mapAPI', authenticateJWT, shopController.retrievePlaces);
-router.get('/searchCafes', authenticateJWT, shopController.searchCafes);
-router.post('/postCafes', authenticateJWT, shopController.postCafes);
+router.get('/mapAPI', authenticateJWT, (req, res) => shopController.retrievePlaces(req, res));
+router.get('/searchCafes', authenticateJWT, (req, res) => shopController.searchCafes(req, res));
+router.post('/postCafes', authenticateJWT, (req, res) => shopController.postCafes(req, res));
 
 export default router;
