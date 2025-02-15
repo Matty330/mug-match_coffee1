@@ -1,6 +1,6 @@
 import { DataTypes } from 'sequelize';
 import sequelize from '../config/database.js';
-import Profile from './Profile.js';
+import Profile from './profileModel.js';
 
 const Shops = sequelize.define('Shop', {
     user_id: {
@@ -14,22 +14,22 @@ const Shops = sequelize.define('Shop', {
         unique: true
     },
     rating: {
-        type: DataType.INTEGER,
+        type: DataTypes.INTEGER,
         allowNull: false,
         validate: {
-        min: 1,
-        max: 5
+            min: 1,
+            max: 5
+        }
+    },
+    message: {
+        type: DataTypes.STRING(255)
     }
-},
-message: {
-    type: DataTypes.STRING(255)
-}
 }, {
     tableName: 'shops',
     timestamps: false
 });
 
-Profile.hasOne(Shops, {foreignKey: 'user_id'});
-Shops.belongsTo(Profile, {foreignKey: 'user_id'});
+Profile.hasOne(Shops, { foreignKey: 'user_id' });
+Shops.belongsTo(Profile, { foreignKey: 'user_id' });
 
 export default Shops;

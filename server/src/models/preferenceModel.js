@@ -1,5 +1,5 @@
-import { DataTypes } from Sequelize;
-import sequelize from '../config/database.js'
+import { DataTypes } from 'sequelize';
+import sequelize from '../config/database.js';
 import Profile from './profileModel.js';
 import Coffee from './coffeeModel.js';
 
@@ -14,7 +14,7 @@ const Preference = sequelize.define('Preference', {
     },
     coffee_id: {
         type: DataTypes.INTEGER,
-        reference: {
+        references: {
             model: Coffee,
             key: 'coffee_id'
         }
@@ -27,13 +27,13 @@ const Preference = sequelize.define('Preference', {
     }
 }, {
     tableName: 'preference',
-    timestamp: false
+    timestamps: false
 });
 
-Profile.hasOne(Preference, {foreignKey: 'user_id'});
-Preference.belongsTo(Profile, {foreignKey: 'user_id'});
+Profile.hasOne(Preference, { foreignKey: 'user_id' });
+Preference.belongsTo(Profile, { foreignKey: 'user_id' });
 
-Coffee.hasOne(Preference, {foreignKey: 'coffee_id'});
-Preference.belongsTo(Coffee, { foreignKey: 'coffe_id'});
+Coffee.hasOne(Preference, { foreignKey: 'coffee_id' });
+Preference.belongsTo(Coffee, { foreignKey: 'coffee_id' });
 
 export default Preference;

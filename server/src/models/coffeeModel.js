@@ -1,5 +1,5 @@
 import { DataTypes } from "sequelize";
-import sequelize from "../config/database";
+import sequelize from "../config/database.js";
 
 const Coffee = sequelize.define('Coffee', {
     coffee_id: {
@@ -24,7 +24,7 @@ const Coffee = sequelize.define('Coffee', {
         type: DataTypes.STRING(50)
     }
 }, {
-    tableName: 'coffe_id',
+    tableName: 'coffee_id',
     timestamps: false
 });
 

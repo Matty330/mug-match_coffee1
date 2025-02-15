@@ -1,10 +1,11 @@
-const express = require('express');
+import express from 'express';
+import shopController from '../controllers/shopController.js';
+import authenticateJWT from '../middleware/authenticateJWT.js';
+
 const router = express.Router();
-const shopController = require('../controllers/shopController');
-const authenticateJWT = require('../middleware/authenticateJWT');
 
 router.get('/mapAPI', authenticateJWT, shopController.retrievePlaces);
 router.get('/searchCafes', authenticateJWT, shopController.searchCafes);
 router.post('/postCafes', authenticateJWT, shopController.postCafes);
 
-module.exports = router;
+export default router;

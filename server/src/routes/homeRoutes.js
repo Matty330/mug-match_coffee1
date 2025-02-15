@@ -1,12 +1,11 @@
 import express from 'express';
-import Coffee from '../model/coffeeModel.js'; // Ensure correct import
+import Coffee from '../models/coffeeModel.js';
 
 const router = express.Router();
 
-
 router.get('/coffee', async (req, res) => {
     try {
-        const coffeeData = await Coffee.findAll(); // Fetch coffee data
+        const coffeeData = await Coffee.findAll();
         res.json(coffeeData); 
     } catch (error) {
         console.error("Error fetching coffee data:", error);
