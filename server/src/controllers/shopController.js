@@ -1,15 +1,16 @@
 import fetch from 'node-fetch';
-import Auth from '../utils/auth.js';
 import dotenv from 'dotenv';
+import Cafe from '../models/coffeeModel.js'; // Import Cafe model if saving cafes
 
 dotenv.config();
 
 const shopController = {
     retrievePlaces: async (req, res) => {
         try {
-            const token = Auth.getToken(req);
+            const token = req.header('Authorization')?.split(' ')[1];
+
             if (!token) {
-                return res.status(401).json({ error: 'No authentication token found' });
+                return res.status(401).json({ error: 'No authentication token provided' });
             }
 
             const { latitude, longitude } = req.query;
@@ -36,9 +37,10 @@ const shopController = {
 
     searchCafes: async (req, res) => {
         try {
-            const token = Auth.getToken(req);
+            const token = req.header('Authorization')?.split(' ')[1];
+
             if (!token) {
-                return res.status(401).json({ error: 'No authentication token found' });
+                return res.status(401).json({ error: 'No authentication token provided' });
             }
 
             const { latitude, longitude } = req.query;
@@ -65,9 +67,10 @@ const shopController = {
 
     postCafes: async (req, res) => {
         try {
-            const token = Auth.getToken(req);
+            const token = req.header('Authorization')?.split(' ')[1];
+
             if (!token) {
-                return res.status(401).json({ error: 'No authentication token found' });
+                return res.status(401).json({ error: 'No authentication token provided' });
             }
 
             const cafeData = req.body;
@@ -75,6 +78,7 @@ const shopController = {
                 return res.status(400).json({ error: 'Cafe name and address are required' });
             }
 
+            // Save new cafe to database
             const newCafe = await Cafe.create(cafeData);
             return res.status(201).json({ message: 'Cafe data posted successfully', data: newCafe });
         } catch (err) {
